@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  * This file is part of ClassIcon, licensed under the MIT License (MIT).
+  *
+  * Copyright (c) Reto Merz
+  * Copyright (c) JetBrains s.r.o.
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+  * in the Software without restriction, including without limitation the rights
+  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  * copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
+  *
+  * The above copyright notice and this permission notice shall be included in
+  * all copies or substantial portions of the Software.
+  *
+  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+-->
+<idea-plugin version="2">
+  <id>ClassicIcon</id>
+  <name>ClassicIcon</name>
+  <version>1.0</version>
+  <vendor url="https://github.com/retomerz">Reto Merz</vendor>
+
+  <description><![CDATA[
+      <img src="https://raw.githubusercontent.com/retomerz/classic-icon-idea/master/win.png" alt="Screenshot" />
+      <h1>I Want The Classic IntelliJ IDEA Application Icon Back.</h1>
+      <p>Or specify a custom image in {idea}\bin\idea.properties</p>
+      <blockquote>"classic.icon=/path/to/my/icon.png"</blockquote>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Version 1.0
+    ]]>
+  </change-notes>
+
+  <idea-version since-build="143"/>
+
+  <project-components>
+    <component>
+      <implementation-class>ch.retomerz.ClassicIcon</implementation-class>
+    </component>
+  </project-components>
+</idea-plugin>
