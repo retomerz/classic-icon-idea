@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+  * This file is part of ClassIcon, licensed under the MIT License (MIT).
+  *
+  * Copyright (c) Reto Merz
+  * Copyright (c) JetBrains s.r.o.
+  *
+  * Permission is hereby granted, free of charge, to any person obtaining a copy
+  * of this software and associated documentation files (the "Software"), to deal
+  * in the Software without restriction, including without limitation the rights
+  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  * copies of the Software, and to permit persons to whom the Software is
+  * furnished to do so, subject to the following conditions:
+  *
+  * The above copyright notice and this permission notice shall be included in
+  * all copies or substantial portions of the Software.
+  *
+  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  * THE SOFTWARE.
+-->
+<project name="ClassicIcon" default="build">
+
+    <property name="version" value="1.0"/>
+
+    <!-- compile release with IDEA 2016.1.2 -->
+    <property name="idea_jars.dir" value="C:/Program Files (x86)/JetBrains/IntelliJ IDEA Community Edition 2016.1.2/lib"/>
+
+    <!-- SUPPORTED -->
+    <!-- <property name="idea_jars.dir" value="C:/Program Files (x86)/JetBrains/IntelliJ IDEA Community Edition 162.646.4/lib"/> -->
+    <!-- <property name="idea_jars.dir" value="C:/Program Files (x86)/JetBrains/IntelliJ IDEA 2016.1.2/lib"/> -->
+    <!-- <property name="idea_jars.dir" value="C:/Program Files (x86)/JetBrains/IntelliJ IDEA Community Edition 15.0.6/lib"/> -->
+
+    <property name="name" value="ClassicIcon-${version}"/>
+    <property name="build.dir" value="build"/>
+    <property name="src.dir" value="src"/>
+    <property name="deploy.dir" value="target"/>
+    <property name="resources.dir" value="resources"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="content.dir" value="${build.dir}/${name}"/>
+    <property name="jar.dir" value="${content.dir}/lib"/>
+
+    <target name="@clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="@compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" includeAntRuntime="false" debug="true" source="1.6" target="1.6">
+            <include name="**/**" />
+            <classpath>
+                <pathelement location="${idea_jars.dir}/openapi.jar"/>
+                <pathelement location="${idea_jars.dir}/util.jar"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="@copy">
+      <copy todir="${classes.dir}">
+        <fileset dir="${resources.dir}"/>
+        <fileset dir="${src.dir}"/>
+      </copy>
+      <copy file="LICENSE" todir="${content.dir}"/>
+    </target>
+
+    <target name="@jar" depends="@compile,@copy">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/classic-icon.jar" basedir="${classes.dir}"/>
+    </target>
+
+    <target name="@zip" depends="@jar">
+        <zip destfile="${build.dir}/${name}.zip" basedir="${content.dir}"/>
+    </target>
+
+    <target name="build" depends="@clean,@zip"/>
+
+</project>
