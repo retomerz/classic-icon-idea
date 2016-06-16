@@ -63,7 +63,7 @@
         <fileset dir="${resources.dir}"/>
         <fileset dir="${src.dir}"/>
       </copy>
-      <copy file="LICENSE" todir="${content.dir}"/>
+      <copy file="LICENSE" todir="${classes.dir}/META-INF"/>
     </target>
 
     <target name="@jar" depends="@compile,@copy">
