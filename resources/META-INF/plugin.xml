@@ -33,7 +33,7 @@
       <h1>I Want The Classic IntelliJ IDEA Application Icon Back.</h1><br>
       Or specify a custom icon in IDEA_HOME\bin\idea.properties<br>
       <blockquote>Unix: "classic.icon=/path/to/my/icon.png"<br>
-      Windows : "classic.icon=c:\\path\\to\\icon.png"</blockquote>
+      Windows : "classic.icon=c:\\path\\to\\icon.png" (use two '\' as file separator)</blockquote>
     ]]></description>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html
