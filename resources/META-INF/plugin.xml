@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-  * This file is part of ClassIcon, licensed under the MIT License (MIT).
+  * This file is part of Class Icon, licensed under the MIT License (MIT).
   *
   * Copyright (c) Reto Merz
   * Copyright (c) JetBrains s.r.o.
@@ -24,21 +24,17 @@
 -->
 <idea-plugin version="2">
   <id>ClassicIcon</id>
-  <name>ClassicIcon</name>
-  <version>1.0</version>
+  <name>Classic Icon</name>
+  <version>1.1</version>
   <vendor url="https://github.com/retomerz">Reto Merz</vendor>
 
   <description><![CDATA[
-      <img src="https://raw.githubusercontent.com/retomerz/classic-icon-idea/master/win.png" alt="Screenshot" />
-      <h1>I Want The Classic IntelliJ IDEA Application Icon Back.</h1>
-      <p>Or specify a custom image in {idea}\bin\idea.properties</p>
-      <blockquote>"classic.icon=/path/to/my/icon.png"</blockquote>
+      <img src="https://raw.githubusercontent.com/retomerz/classic-icon-idea/master/win.png" alt="Screenshot" /><br>
+      <h1>I Want The Classic IntelliJ IDEA Application Icon Back.</h1><br>
+      Or specify a custom icon in IDEA_HOME\bin\idea.properties<br>
+      <blockquote>Unix: "classic.icon=/path/to/my/icon.png"<br>
+      Windows : "classic.icon=c:\\path\\to\\icon.png"</blockquote>
     ]]></description>
-
-  <change-notes><![CDATA[
-      Version 1.0
-    ]]>
-  </change-notes>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html
        -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!--
-  * This file is part of ClassIcon, licensed under the MIT License (MIT).
+  * This file is part of Class Icon, licensed under the MIT License (MIT).
   *
   * Copyright (c) Reto Merz
   * Copyright (c) JetBrains s.r.o.
@@ -24,7 +24,7 @@
 -->
 <project name="ClassicIcon" default="build">
 
-    <property name="version" value="1.0"/>
+    <property name="version" value="1.1"/>
 
     <!-- compile release with IDEA 2016.1.2 -->
     <property name="idea_jars.dir" value="C:/Program Files (x86)/JetBrains/IntelliJ IDEA Community Edition 2016.1.2/lib"/>
@@ -40,7 +40,8 @@
     <property name="deploy.dir" value="target"/>
     <property name="resources.dir" value="resources"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="content.dir" value="${build.dir}/${name}"/>
+    <property name="root.content.dir" value="${build.dir}/content"/>
+    <property name="content.dir" value="${root.content.dir}/${name}"/>
     <property name="jar.dir" value="${content.dir}/lib"/>
 
     <target name="@clean">
@@ -72,7 +73,7 @@
     </target>
 
     <target name="@zip" depends="@jar">
-        <zip destfile="${build.dir}/${name}.zip" basedir="${content.dir}"/>
+        <zip destfile="${build.dir}/${name}.zip" basedir="${root.content.dir}"/>
     </target>
 
     <target name="build" depends="@clean,@zip"/>
