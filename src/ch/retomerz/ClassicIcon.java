@@ -1,19 +1,19 @@
 /**
  * This file is part of Class Icon, licensed under the MIT License (MIT).
- *
+ * <p/>
  * Copyright (c) Reto Merz
  * Copyright (c) JetBrains s.r.o.
- *
+ * <p/>
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * <p/>
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * <p/>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -50,10 +50,7 @@ public class ClassicIcon extends AbstractProjectComponent {
 
   @Override
   public void projectOpened() {
-    String ce = "";
-    if ("Idea".equals(System.getProperty("idea.platform.prefix"))) {
-      ce = "_CE";
-    }
+    String iconName = getIconName();
     if (imgCustom == null) {
       String custom = System.getProperty("classic.icon");
       if (!StringUtil.isEmptyOrSpaces(custom)) {
@@ -86,12 +83,12 @@ public class ClassicIcon extends AbstractProjectComponent {
         Image org = frame.getIconImage();
         if (org == null || org.getWidth(null) == 32) {
           if (img == null) {
-            img = new ImageIcon(getClass().getResource("/ch/retomerz/icon" + ce + ".png")).getImage();
+            img = new ImageIcon(getClass().getResource("/ch/retomerz/" + iconName + ".png")).getImage();
           }
           use = img;
         } else {
           if (imgBig == null) {
-            imgBig = new ImageIcon(getClass().getResource("/ch/retomerz/icon" + ce + "_128.png")).getImage();
+            imgBig = new ImageIcon(getClass().getResource("/ch/retomerz/" + iconName + "_128.png")).getImage();
           }
           use = imgBig;
         }
@@ -110,5 +107,32 @@ public class ClassicIcon extends AbstractProjectComponent {
             message,
             NotificationType.WARNING
     ).setImportant(false).notify(myProject);
+  }
+
+  private static String getIconName() {
+    String prefix = System.getProperty("idea.platform.prefix");
+    if (prefix != null) {
+      prefix = prefix.toLowerCase();
+      if ("idea".equals(prefix)) {
+        return "icon_CE";
+      } else if (prefix.startsWith("phpstorm")) {
+        return "phpstorm";
+      } else if (prefix.startsWith("pycharm")) {
+        return "pycharm";
+      } else if (prefix.startsWith("ruby")) {
+        return "rubymine";
+      } else if (prefix.startsWith("webstorm")) {
+        return "webstorm";
+      } else if (prefix.startsWith("appcode")) {
+        return "appcode";
+      } else if (prefix.startsWith("clion")) {
+        return "clion";
+      } else if (prefix.startsWith("datagrip")) {
+        return "datagrip";
+      } else if (prefix.startsWith("rider")) {
+        return "rider";
+      }
+    }
+    return "icon";
   }
 }
