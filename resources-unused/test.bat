@@ -1,0 +1,1 @@
+ResourceHacker.exe -addoverwrite "C:\temp\test\\idea.exe", "C:\temp\test\\idea.exe", "favicon.ico", ICONGROUP, MAINICON, 0
