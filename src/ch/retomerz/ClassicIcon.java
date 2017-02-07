@@ -1,4 +1,4 @@
-/**
+/*
  * This file is part of Class Icon, licensed under the MIT License (MIT).
  * <p/>
  * Copyright (c) Reto Merz
@@ -53,7 +53,10 @@ public class ClassicIcon extends AbstractProjectComponent {
 
   @Override
   public void projectOpened() {
-    List<Image> images = loadImages();
+    if (SystemInfo.isMac) {
+      return;
+    }
+    List<Image> images = loadImages(myProject);
     for (Frame frame : JFrame.getFrames()) {
       if (frame instanceof IdeFrame) {
         frame.setIconImages(images);
@@ -61,7 +64,7 @@ public class ClassicIcon extends AbstractProjectComponent {
     }
   }
 
-  private void showWarning(String message) {
+  static void showWarning(@Nullable Project project, String message) {
     if (SystemInfo.isWindows) {
       message += "<br><br>" + "Note that you need to use '\\\\' as file separator in idea.properties (and not only a single '\\')";
     }
@@ -70,7 +73,7 @@ public class ClassicIcon extends AbstractProjectComponent {
             "Classic Icon",
             message,
             NotificationType.WARNING
-    ).setImportant(false).notify(myProject);
+    ).setImportant(false).notify(project);
   }
 
   @NotNull
@@ -102,42 +105,42 @@ public class ClassicIcon extends AbstractProjectComponent {
   }
 
   @NotNull
-  private List<Image> loadImages() {
+  static List<Image> loadImages(@Nullable Project project) {
     List<Image> ret = ContainerUtil.newArrayListWithCapacity(2);
-    Image custom = tryLoadCustom();
+    Image custom = tryLoadCustom(project);
     if (custom != null) {
       ret.add(custom);
     } else {
       String iconName = getIconName();
-      ret.add(ImageLoader.loadFromResource("/ch/retomerz/" + iconName + ".png", getClass()));
-      ret.add(ImageLoader.loadFromResource("/ch/retomerz/" + iconName + "_128.png", getClass()));
+      ret.add(ImageLoader.loadFromResource("/ch/retomerz/" + iconName + ".png", ClassicIcon.class));
+      ret.add(ImageLoader.loadFromResource("/ch/retomerz/" + iconName + "_128.png", ClassicIcon.class));
     }
     return ret;
   }
 
   @Nullable
-  private Image tryLoadCustom() {
+  private static Image tryLoadCustom(@Nullable Project project) {
     String custom = System.getProperty("classic.icon");
     if (StringUtil.isEmptyOrSpaces(custom)) {
       return null;
     }
     File file = new File(custom);
     if (!file.exists()) {
-      showWarning(String.format("File '%s' does not exists. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
+      showWarning(project, String.format("File '%s' does not exists. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
       return null;
     }
     if (!file.isFile()) {
-      showWarning(String.format("Path '%s' is not a file. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
+      showWarning(project, String.format("Path '%s' is not a file. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
       return null;
     }
     if (!file.canRead()) {
-      showWarning(String.format("File '%s' is not readable. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
+      showWarning(project, String.format("File '%s' is not readable. Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
       return null;
     }
     try {
       return ImageIO.read(file);
     } catch (IOException e) {
-      showWarning(String.format("File '%s' is not a image (for example a .png). Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
+      showWarning(project, String.format("File '%s' is not a image (for example a .png). Please fix 'classic.icon' (in IDEA_HOME/bin/idea.properties)", file));
       Logger.getInstance(ClassicIcon.class).error("Could not load image " + custom, e);
       return null;
     }
