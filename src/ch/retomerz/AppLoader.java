@@ -41,13 +41,19 @@ public class AppLoader implements ApplicationLoadListener {
 
   @Override
   public void beforeApplicationLoaded(@NotNull Application application, @NotNull String configPath) {
-    if (!SystemInfo.isMac) {
-      return;
-    }
+    // Invoke later is necessary to make showWarning work.
+    // setFrameIcon is called to change icon of welcome screen and it is unclear
+    // if invoke later can be invoked to early (in the future) so setFrameIcon
+    // is called again on ClassicIcon#projectOpened just in case.
+    // Important here is only setDockIcon and this would work without invoke later also.
     application.invokeLater(new Runnable() {
       @Override
       public void run() {
-        setDockIcon();
+        if (SystemInfo.isMac) {
+          setDockIcon();
+        } else {
+          ClassicIcon.setFrameIcon(null);
+        }
       }
     });
   }

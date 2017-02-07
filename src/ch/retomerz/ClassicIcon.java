@@ -56,7 +56,12 @@ public class ClassicIcon extends AbstractProjectComponent {
     if (SystemInfo.isMac) {
       return;
     }
-    List<Image> images = loadImages(myProject);
+    // See comment in AppLoader#beforeApplicationLoaded
+    setFrameIcon(myProject);
+  }
+
+  static void setFrameIcon(@Nullable Project project) {
+    List<Image> images = loadImages(project);
     for (Frame frame : JFrame.getFrames()) {
       if (frame instanceof IdeFrame) {
         frame.setIconImages(images);
